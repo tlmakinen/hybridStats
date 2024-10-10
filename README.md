@@ -1,7 +1,7 @@
 # hybridStats
 For demonstrating experiments for hybrid summary statistics. 
 
-[schematic-twostep-results2.pdf](https://github.com/user-attachments/files/17328518/schematic-twostep-results2.pdf)
+![schematic-twostep-results2](https://github.com/user-attachments/assets/4c803aa7-665b-455e-9723-29b6fd22bccb)
 
 
 Structure:
