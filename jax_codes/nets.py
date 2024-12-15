@@ -14,7 +14,7 @@ import math
 
 Array = Any
 Dtype = Any  # this could be a real type?
-np = jnp
+#np = jnp
 
 
 
