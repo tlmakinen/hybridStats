@@ -5,7 +5,7 @@ import flax.linen as nn
 import jax
 import jax.numpy as jnp
 from jax_codes.mpk.multipole_cnn import MultipoleConv
-from network.mpk.multipole_cnn_factory import MultipoleCNNFactory
+from jax_codes.mpk.multipole_cnn_factory import MultipoleCNNFactory
 import cloudpickle as pickle
 import math
 
