@@ -13,8 +13,9 @@ from tqdm import tqdm
 from sbijax._src._ne_base import NE
 from sbijax._src.util.data import as_inference_data
 from sbijax._src.util.early_stopping import EarlyStopping
-#from sbijax._src.util.dataloader import as_batch_iterators
-from dataloaders import as_batch_iterators
+
+# local import  
+from jax_codes.dataloaders import as_batch_iterators
 
 
 # custom dataloader class to support additive noise (or simulator)
