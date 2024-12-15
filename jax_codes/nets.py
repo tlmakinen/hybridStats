@@ -98,29 +98,6 @@ def get_padding(arraylen, padto):
 
 
 
-class MPK_layer(nn.Module):
-    multipole_layers: Sequence[MultipoleConv]
-    act: Callable = smooth_leaky
-
-    @nn.compact
-    def __call__(self, x):
-        for i,l in enumerate(self.multipole_layers):
-            z = l(x)
-            x = self.act(z) if i == 0 else self.act(x + z)
-        return x
-        
-        
-# log transform
-def log_transform(x):
-    xo = jnp.abs(x.min(axis=0, keepdims=True)) + 0.01
-    return xo * jnp.log(1.0 + (x / xo))
-
-
-### MULTIPOLE KERNEL CODE BELOW ###
-# TODO: move this to its own repo
-
-
-
 
 
 def _conv_dimension_numbers(input_shape):
@@ -403,5 +380,30 @@ class MultipoleCNNFactory:
                              strides=strides,
                              pad_size=pad_size,
                              dtype=self.dtype)
+
+
+
+
+class MPK_layer(nn.Module):
+    multipole_layers: Sequence[MultipoleConv]
+    act: Callable = smooth_leaky
+
+    @nn.compact
+    def __call__(self, x):
+        for i,l in enumerate(self.multipole_layers):
+            z = l(x)
+            x = self.act(z) if i == 0 else self.act(x + z)
+        return x
+        
+        
+# log transform
+def log_transform(x):
+    xo = jnp.abs(x.min(axis=0, keepdims=True)) + 0.01
+    return xo * jnp.log(1.0 + (x / xo))
+
+
+### MULTIPOLE KERNEL CODE BELOW ###
+# TODO: move this to its own repo
+
 
 
