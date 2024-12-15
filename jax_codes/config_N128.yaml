@@ -1,0 +1,84 @@
+# for learning new summaries for convergence maps
+
+
+# simulation parameters
+L: 250              # Mpc/h
+Lz: 4000            # z-direction
+N: 128              # meshgrid resolution
+Nz: 512             # LOS direction
+zi: 20              # initial redshift CHECK THIS VALUE
+zf: 0.0             # final redshift
+nsteps: 100          # number of PM integration steps
+B: 1                # force grid resolution relative to particle grid
+lpt_order: 2        # order of the initial LPT expansion
+num_tomo: 4         # number of tomographic bins
+z_means: [0.5, 0.75, 1.0, 1.25] # redshift bin means
+z_stds:  [0.14, 0.14, 0.14, 0.14] # redshift bin widths
+los_indices: ""     # path to where LOS indices are stored for ray tracing
+datadir: /data101/makinen/lemur_sims/pm_sims/N192_hires/  # path to simulation files
+seed: 456           # random seed
+
+
+# (default) noise parameters
+ngal: 30.           # Euclid noise level
+noiseamp: 0.125     # starting noise amplitude for training
+rms: 0.3            # intrinsic galaxy ellipticity
+
+# Cls parameters
+cls_outbins: 6      # number of histogrammed bins
+cl_cut: -1          # index to cut Cls (default none)
+ellmin: 0           # minimum ell (largest scale) to consider
+
+
+# IMNN parameters
+n_s: 1500           # total number of fiducial sims
+n_d: 375            # total number of derivative sims
+
+n_s_eff: 1000       # number of sims to sample from dataset
+n_d_eff: 250        # number of sims to sample from derivative dataset
+
+θ_fid: [0.3, 0.8]   # fiducial model
+δθ: [0.0115, 0.01] # derivative step size in either +/- direction
+
+n_params: 2         
+model_key: 44       # initial random seed
+
+
+# compression network hyperparameters
+
+## multipole kernel embedding
+mpk_kernel: 5                # multipole kernel size
+polynomial_degrees: [0, 1, 2] # mpk expansion
+mpk_strides: [1, 1]           # strides for embedding layer
+mpk_input_filters: [4, 6]    # input number of channels for MPK embedding. Here we have num_tomo=4 inputs and 6 inputs 
+                       # for the residual mpk embedding for \ell=[0,1,2] 
+                       # TODO: determine these automatically
+act: smooth_leaky
+filters: [1,1,1]       # initial filter count for incept-stride network
+n_extra_summaries: 2   # number of output summaries
+do_moped: False         # whether to do MOPED compression in the network
+
+# training parameters
+learning_rate: 0.0005    # learning rate
+gradient_clip: 1.0     # gradient clip value
+
+patience: 100         # how many epochs to wait to stop training
+min_iterations: 200   # minimum number of training epochs 
+max_iterations: 7000  # maximum number of training epochs
+
+training_noise_amplitudes: [0.125, 0.15, 0.20, 0.25, 0.3, 0.35, 0.4, 0.45, 0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1.0]
+
+weightdir: /data101/makinen/lemur_sims/pm_sims/N192_hires/N192_all_cls/         # where to save the model weights after training
+weightfile: imnn_w
+
+# prior dataset details
+prior_big: /data101/makinen/lemur_sims/pm_sims/N192_hires/all_prior_sims.npz                 # filename
+prior_small: /data101/makinen/lemur_sims/pm_sims/N192_hires/smaller_prior_sims.npz       # filename
+
+# target simulation stuff
+target_name: "target_L_250_N_192_Nz_512.npz"
+
+
+# output directories for summaries etc
+output_directory: ./results/N192_all_cls/
+output_plot_directory: ./results/N192_all_cls/plots/
