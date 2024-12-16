@@ -1,4 +1,7 @@
-# hybridStats
+# Hybrid Summary Statistics
+
+<img src="https://raw.githubusercontent.com/tlmakinen/hybridStats/master/tutorial/img/hybrid-stats-schematic.jpg" alt="drawing" width="700"/>
+
 
  [![arXiv](https://img.shields.io/badge/arXiv-2107.07405-b31b1b.svg)](https://arxiv.org/abs/2410.07548) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
  <!-- [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://bit.ly/imnn-cosmo) -->
