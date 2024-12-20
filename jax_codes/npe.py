@@ -160,7 +160,9 @@ class NPE(NE):
         early_stop = EarlyStopping(1e-3, n_early_stopping_patience)
         best_params, best_loss = None, np.inf
         logging.info("training model")
-        for i in tqdm(range(n_iter)):
+
+        pbar = tqdm(range(n_iter), leave=True, position=0) # progress bar
+        for i in pbar:
             train_loss = 0.0
             rng_key = jr.fold_in(seed, i)
             for batch in train_iter:
@@ -176,7 +178,8 @@ class NPE(NE):
                 val_key, params, val_iter, n_atoms
             )
             losses[i] = jnp.array([train_loss, validation_loss])
-
+            pbar.set_description('epoch %d loss: %.5f  val loss: %.5f'%(i, train_loss, validation_loss))
+            
             _, early_stop = early_stop.update(validation_loss)
             if early_stop.should_stop:
                 logging.info("early stopping criterion found")
